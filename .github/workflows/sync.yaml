@@ -2,6 +2,8 @@ name: Upstream Sync
 
 permissions:
   contents: write
+  # Upstream commits that edit workflow files are rejected without this scope.
+  workflows: write
 
 on:
   schedule:
