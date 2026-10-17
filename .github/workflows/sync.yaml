@@ -2,8 +2,6 @@ name: Upstream Sync
 
 permissions:
   contents: write
-  # Upstream commits that edit workflow files are rejected without this scope.
-  workflows: write
 
 on:
   schedule:
@@ -20,4 +18,6 @@ jobs:
       - name: Sync upstream changes
         run: gh repo sync ${{ github.repository }} --source dreamhunter2333/cloudflare_temp_email --branch main
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Default GITHUB_TOKEN cannot merge upstream commits that edit
+          # workflow files. This PAT needs contents and workflow scopes.
+          GH_TOKEN: ${{ secrets.SYNC_TOKEN }}
